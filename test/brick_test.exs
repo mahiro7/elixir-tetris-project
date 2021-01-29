@@ -2,8 +2,9 @@ defmodule BrickTest do
   use ExUnit.Case
 
   import Tetris.Brick
- 
-  def new_brick, do: new()
+  alias Tetris.Points
+
+  def new_brick(attributes \\ []), do: new(attributes)
 
   test "Creates a new brick" do
     assert new_brick().name == :i
@@ -18,7 +19,7 @@ defmodule BrickTest do
   end
 
   test "Should manipulate brick" do
-    actual = 
+    actual =
       new_brick()
       |> left
       |> rigth
@@ -31,5 +32,30 @@ defmodule BrickTest do
       assert actual.reflection in [true, false]
   end
 
-  
+  test "Should return points for i shape" do
+    points =
+      new_brick(name: :i)
+      |> shape()
+
+    assert {2 ,2} in points
+  end
+
+  test "Should return points for o shape" do
+    points =
+      new_brick(name: :o)
+      |> shape()
+
+    assert {3, 3} in points
+  end
+
+  test "Should translate a list of points" do
+    actual_points =
+      new_brick
+      |> shape
+      |> Points.translate({1, 1})
+      |> Points.translate({0, 1})
+
+    assert actual_points == [{3, 3}, {3, 4}, {3, 5}, {3, 6}]
+  end
+
 end
