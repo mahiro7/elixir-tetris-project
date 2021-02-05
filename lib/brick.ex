@@ -1,4 +1,6 @@
 defmodule Tetris.Brick do
+    alias Tetris.Points
+
     defstruct [
         name: :i,
         location: {40, 0},
@@ -109,5 +111,36 @@ defmodule Tetris.Brick do
             {2, 3}, {3, 3},
                     {3, 4}
         ]
+    end
+
+    '''
+    def to_string(block) do
+        map =
+            block
+            |> shape
+            |> Enum.map(fn key -> {key, "1"} end)
+            |> Map.new
+
+        for x <- (1 .. 4), y <- (1 .. 4) do
+            Map.get(map, {x, y}, "0")
+        end
+        |> Enum.chunk_every(4)
+        |> Enum.map(&Enum.join/1)
+        |> Enum.join("\n")
+    end
+    '''
+
+    def to_string(brick) do
+        brick
+        |> shape
+        |> Points.to_string
+    end
+
+    def print(brick) do
+        brick
+        |> shape
+        |> Points.print
+
+        brick
     end
 end
