@@ -50,12 +50,29 @@ defmodule BrickTest do
 
   test "Should translate a list of points" do
     actual_points =
-      new_brick
+      new_brick()
       |> shape
       |> Points.translate({1, 1})
       |> Points.translate({0, 1})
 
     assert actual_points == [{3, 3}, {3, 4}, {3, 5}, {3, 6}]
+  end
+
+  test "Should rotate, flip and mirror" do
+    [{1, 1}]
+    |> Points.mirror
+    |> assert_point({4, 1})
+    |> Points.flip
+    |> assert_point({4, 4})
+    |> Points.rotate_90
+    |> assert_point({1, 4})
+    |> Points.rotate_90
+    |> assert_point({1, 1})
+  end
+
+  def assert_point([actual], expected) do
+    assert actual == expected
+    [actual]
   end
 
 end
