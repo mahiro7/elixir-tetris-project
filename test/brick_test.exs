@@ -11,11 +11,11 @@ defmodule BrickTest do
   end
 
   test "Creates a new random brick" do
-      actual = new_random()
+    actual = new_random()
 
-      assert actual.name in [:i, :l, :z, :t, :o]
-      assert actual.rotation in [0, 90, 180, 270]
-      assert actual.reflection in [true, false]
+    assert actual.name in [:i, :l, :z, :t, :o]
+    assert actual.rotation in [0, 90, 180, 270]
+    assert actual.reflection in [true, false]
   end
 
   test "Should manipulate brick" do
@@ -27,9 +27,9 @@ defmodule BrickTest do
       |> down
       |> spin_90
 
-      assert actual.location == {41, 1}
-      assert actual.rotation == 90
-      assert actual.reflection in [true, false]
+    assert actual.location == {41, 1}
+    assert actual.rotation == 90
+    assert actual.reflection in [true, false]
   end
 
   test "Should return points for i shape" do
@@ -37,7 +37,7 @@ defmodule BrickTest do
       new_brick(name: :i)
       |> shape()
 
-    assert {2 ,2} in points
+    assert {2, 2} in points
   end
 
   test "Should return points for o shape" do
@@ -60,13 +60,13 @@ defmodule BrickTest do
 
   test "Should rotate, flip and mirror" do
     [{1, 1}]
-    |> Points.mirror
+    |> Points.mirror()
     |> assert_point({4, 1})
-    |> Points.flip
+    |> Points.flip()
     |> assert_point({4, 4})
-    |> Points.rotate_90
+    |> Points.rotate_90()
     |> assert_point({1, 4})
-    |> Points.rotate_90
+    |> Points.rotate_90()
     |> assert_point({1, 1})
   end
 
@@ -74,5 +74,4 @@ defmodule BrickTest do
     assert actual == expected
     [actual]
   end
-
 end
