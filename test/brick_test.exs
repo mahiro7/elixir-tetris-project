@@ -70,6 +70,26 @@ defmodule BrickTest do
     |> assert_point({1, 1})
   end
 
+  test "Should convert brick to string" do
+    actual = new_brick |> Tetris.Brick.to_string
+    expected = "0100\n0100\n0100\n0100"
+
+    assert actual == expected
+  end
+
+  test "Should inspect bricks" do
+    expected = """
+    0100
+    0100
+    0100
+    0100
+    {#{x_center()}, 0} false 0
+    """
+    actual = new_brick |> inspect
+
+    assert "#{actual}\n" == expected
+  end
+
   def assert_point([actual], expected) do
     assert actual == expected
     [actual]
