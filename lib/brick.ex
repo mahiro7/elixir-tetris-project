@@ -8,6 +8,7 @@ defmodule Tetris.Brick do
       reflection: boolean()
   }
 
+  @x_center 40
   defstruct name: :i,
             location: {40, 0},
             rotation: 0,
@@ -146,6 +147,17 @@ defmodule Tetris.Brick do
 
     brick
   end
+
+  ## Bricks colors
+  def color(%{name: :i}), do: :cyan
+  def color(%{name: :o}), do: :yellow
+  def color(%{name: :t}), do: :purple
+  def color(%{name: :l, reflection: false}), do: :blue
+  def color(%{name: :l, reflection: true}), do: :orange
+  def color(%{name: :z, reflection: false}), do: :red
+  def color(%{name: :z, reflection: true}), do: :green
+
+  def x_center(), do: @x_center
 
   defimpl Inspect, for: Tetris.Brick do
     import Inspect.Algebra
